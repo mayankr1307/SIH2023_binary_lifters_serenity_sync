@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1043683636903",
+    "project_id": "sih-2023-171d8",
+    "storage_bucket": "sih-2023-171d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043683636903:android:5e275f23adb7250ea6cd82",
+        "android_client_info": {
+          "package_name": "sih.binarylifters.serenitysync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043683636903-0a050ld37dbcfh7rc3koj092680ui5a7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sih.binarylifters.serenitysync",
+            "certificate_hash": "4bf74347614e78c469f6ca16553fa6c0a527cd7f"
+          }
+        },
+        {
+          "client_id": "1043683636903-1rlsar08b7ul23538grmeivfrotqstn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwh8SSP9CBNEGGRzkSv6pyNqW1eBBdJVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043683636903-1rlsar08b7ul23538grmeivfrotqstn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
