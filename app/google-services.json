@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1043683636903:android:5e275f23adb7250ea6cd82",
+        "mobilesdk_app_id": "1:1043683636903:android:842763426d3c99baa6cd82",
         "android_client_info": {
           "package_name": "sih.binarylifters.serenitysync"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1043683636903-0a050ld37dbcfh7rc3koj092680ui5a7.apps.googleusercontent.com",
+          "client_id": "1043683636903-v0nke7cg58j5bn4pl63ppacfcsovqh33.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "sih.binarylifters.serenitysync",
-            "certificate_hash": "4bf74347614e78c469f6ca16553fa6c0a527cd7f"
+            "certificate_hash": "08a820b78917ee3f3ed513e5b47e62ecd99c5720"
           }
         },
         {
