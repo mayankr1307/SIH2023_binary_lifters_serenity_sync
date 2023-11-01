@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import sih.binarylifters.serenitysync.R
 import sih.binarylifters.serenitysync.constants.Constants
 import sih.binarylifters.serenitysync.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private var binding: ActivityHomeBinding? = null
 
@@ -24,7 +25,14 @@ class HomeActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         setupToolbar()
+        setupOnClickListeners()
+    }
 
+    private fun setupOnClickListeners() {
+        binding?.cvTestYourself?.setOnClickListener(this@HomeActivity)
+        binding?.cvAi?.setOnClickListener(this@HomeActivity)
+        binding?.cvMood?.setOnClickListener(this@HomeActivity)
+        binding?.cvRecords?.setOnClickListener(this@HomeActivity)
     }
 
     private fun setupToolbar() {
@@ -56,7 +64,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.about_us -> {
-
+                val intent = Intent(this@HomeActivity, AboutUsActivity::class.java)
+                startActivity(intent)
             }
             R.id.help -> {
 
@@ -84,5 +93,14 @@ class HomeActivity : AppCompatActivity() {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id) {
+            R.id.cv_test_yourself -> {
+                val intent = Intent(this@HomeActivity, TestingActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }
