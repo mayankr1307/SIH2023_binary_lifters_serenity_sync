@@ -1,6 +1,7 @@
 package sih.binarylifters.serenitysync.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import sih.binarylifters.serenitysync.R
+import sih.binarylifters.serenitysync.assessmentactivities.PHQActivity
 import sih.binarylifters.serenitysync.classes.TestNames
 
 class TestsAdapter(private val context: Context, private val testList: ArrayList<TestNames>) :
@@ -38,7 +40,12 @@ class TestsAdapter(private val context: Context, private val testList: ArrayList
         ovalDrawable.setColor(Color.parseColor(data.color))
 
         holder.clMain.setOnClickListener {
-
+            when(data.shortForm) {
+                "PHQ-9" -> {
+                    val intent = Intent(context, PHQActivity::class.java)
+                    context.startActivity(intent)
+                }
+            }
         }
     }
 

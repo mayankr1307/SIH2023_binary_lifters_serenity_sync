@@ -3,7 +3,6 @@ package sih.binarylifters.serenitysync.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import sih.binarylifters.serenitysync.R
 import sih.binarylifters.serenitysync.adapters.TestsAdapter
 import sih.binarylifters.serenitysync.constants.Constants
 import sih.binarylifters.serenitysync.databinding.ActivityTestingBinding
