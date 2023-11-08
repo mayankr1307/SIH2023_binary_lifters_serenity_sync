@@ -12,6 +12,7 @@ class PHQActivity : AppCompatActivity() {
     private var testQuestions = ArrayList<TestFormat>()
     private var ptr = 0
     private var selectedOption = -1
+    private var result = arrayListOf<Int>(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +25,35 @@ class PHQActivity : AppCompatActivity() {
         forwardFunctionality()
 
         addQuestions()
-        ptr = 0
         setupQuestion()
 
+        optionsOnClick()
+
+    }
+
+    private fun optionsOnClick() {
+        binding?.option1?.setOnClickListener {
+            selectedOption = 0
+        }
+        binding?.option2?.setOnClickListener {
+            selectedOption = 1
+        }
+        binding?.option3?.setOnClickListener {
+            selectedOption = 2
+        }
+        binding?.option4?.setOnClickListener {
+            selectedOption = 3
+        }
     }
 
     private fun forwardFunctionality() {
         binding?.btnForward?.setOnClickListener {
             if(ptr >= testQuestions.size) {
+                val score = result.sum()
+
                 Toast.makeText(
                     this@PHQActivity,
-                    "You are at the final question of the test.",
+                    "You have completed the assessment with a score of $score.",
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener
@@ -47,6 +66,7 @@ class PHQActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
+            result[ptr - 1] = selectedOption
             setupQuestion()
             supportActionBar?.title = "PHQ-9 Question $ptr"
         }
@@ -77,6 +97,10 @@ class PHQActivity : AppCompatActivity() {
         binding?.option2?.text = testQuestions[ptr].options[1]
         binding?.option3?.text = testQuestions[ptr].options[2]
         binding?.option4?.text = testQuestions[ptr].options[3]
+
+        binding?.rgOptions?.clearCheck()
+
+        selectedOption = -1
 
         ptr ++
     }

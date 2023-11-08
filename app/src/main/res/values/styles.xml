@@ -8,8 +8,4 @@
     <style name="MenuItemStyle" parent="Widget.AppCompat.ActionButton">
         <item name="android:background">@android:color/black</item>
     </style>
-
-    <style name="CustomRadioButtonStyle">
-        <item name="android:button">@drawable/custom_selector_radio_button</item>
-    </style>
 </resources>
