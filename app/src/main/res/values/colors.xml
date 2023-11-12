@@ -11,4 +11,11 @@
     <color name="variant7">#0077B6</color>
     <color name="variant8">#023E8A</color>
     <color name="variant9">#03045E</color>
+
+    <color name="very_light_green">#8BC34A</color>
+    <color name="darker_green">#4CAF50</color>
+    <color name="orange">#FFA500</color>
+    <color name="red">#FF0000</color>
+    <color name="dark_red">#990000</color>
+    <color name="default_text_color">#000000</color>
 </resources>

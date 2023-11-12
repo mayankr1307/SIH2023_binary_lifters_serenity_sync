@@ -1,8 +1,10 @@
 package sih.binarylifters.serenitysync.assessmentactivities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import sih.binarylifters.serenitysync.activities.ResultActivity
 import sih.binarylifters.serenitysync.classes.TestFormat
 import sih.binarylifters.serenitysync.databinding.ActivityPhqBinding
 
@@ -51,11 +53,13 @@ class PHQActivity : AppCompatActivity() {
             if(ptr >= testQuestions.size) {
                 val score = result.sum()
 
-                Toast.makeText(
-                    this@PHQActivity,
-                    "You have completed the assessment with a score of $score.",
-                    Toast.LENGTH_LONG
-                ).show()
+                val intent = Intent(this@PHQActivity, ResultActivity::class.java)
+                intent.putExtra("TEST_NAME", "PHQ-9")
+                intent.putExtra("SCORE", score)
+
+                startActivity(intent)
+                finish()
+
                 return@setOnClickListener
             }
             else if(selectedOption == -1) {
