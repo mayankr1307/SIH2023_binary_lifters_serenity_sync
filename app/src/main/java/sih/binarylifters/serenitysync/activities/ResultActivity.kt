@@ -4,16 +4,27 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import sih.binarylifters.serenitysync.R
 import sih.binarylifters.serenitysync.constants.Constants
 import sih.binarylifters.serenitysync.databinding.ActivityResultBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class ResultActivity : AppCompatActivity() {
 
     private var binding: ActivityResultBinding? = null
     private var testName = ""
     private var testScore = 0
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val user = FirebaseAuth.getInstance().currentUser
+    private val userId = user?.uid
+    private val userRef: DatabaseReference = database.getReference("users")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +83,8 @@ class ResultActivity : AppCompatActivity() {
         binding?.tvAssessmentResult?.text = assessmentText
         binding?.tvScore?.text = "Score: $score"
         binding?.tvName?.text = "Hello ${Constants.DISPLAY_NAME}!"
+
+        saveAssessmentDataToFirebase("PHQ-9", score)
     }
 
     private fun setupToolbar() {
@@ -83,5 +96,29 @@ class ResultActivity : AppCompatActivity() {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    private fun saveAssessmentDataToFirebase(testName: String, score: Int) {
+        userId?.let {
+            val currentDate = Calendar.getInstance().time // Get current date and time
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val formattedDate = dateFormat.format(currentDate)
+
+            val assessmentData = HashMap<String, Any>()
+            assessmentData["testName"] = testName
+            assessmentData["score"] = score
+            assessmentData["date"] = formattedDate // Add the formatted date to assessment data
+
+            val userAssessmentRef = FirebaseDatabase.getInstance().getReference("users").child(it).child("assessments")
+            val newAssessmentRef = userAssessmentRef.push()
+            newAssessmentRef.setValue(assessmentData)
+                .addOnSuccessListener {
+                    Toast.makeText(this@ResultActivity, "Assessment data saved.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this@ResultActivity, "Failed to save data: $e", Toast.LENGTH_SHORT).show()
+                    Log.e("FirebaseException", e.toString())
+                }
+        }
     }
 }

@@ -101,6 +101,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this@HomeActivity, TestingActivity::class.java)
                 startActivity(intent)
             }
+            R.id.cv_records -> {
+                val intent = Intent(this@HomeActivity, RecordsActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
