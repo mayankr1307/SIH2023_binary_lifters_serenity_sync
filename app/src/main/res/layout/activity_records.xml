@@ -23,11 +23,36 @@
         android:textColor="#C4C4C4"
         android:textSize="22sp"
         android:text="No records available..."
-        tools:visibility="gone"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <ProgressBar
+        android:id="@+id/pb_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/variant5"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_fetching_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="Fetching data..."
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/pb_circular"
+        app:layout_constraintStart_toStartOf="@id/pb_circular"
+        app:layout_constraintEnd_toEndOf="@id/pb_circular"
         tools:ignore="HardcodedText" />
 
     <ScrollView
@@ -37,7 +62,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_records"
+            android:id="@+id/rv_assessment_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

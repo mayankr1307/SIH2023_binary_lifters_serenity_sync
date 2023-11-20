@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import sih.binarylifters.serenitysync.R
 import sih.binarylifters.serenitysync.constants.Constants
@@ -79,7 +82,28 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                     Constants.IS_GUEST = true
                     Constants.DISPLAY_NAME = ""
                     Constants.EMAIL_ID = ""
-                    auth.signOut()
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build()
+
+                    val googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+                    googleSignInClient.signOut().addOnCompleteListener { signOutTask ->
+                        if (signOutTask.isSuccessful) {
+                            FirebaseAuth.getInstance().signOut()
+                            val intent = Intent(this@HomeActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this@HomeActivity,
+                                "Failed to sign out: ${signOutTask.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
                     val intent = Intent(this@HomeActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
