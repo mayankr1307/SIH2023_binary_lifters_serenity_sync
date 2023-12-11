@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import sih.binarylifters.serenitysync.R
+import sih.binarylifters.serenitysync.assessmentactivities.GADActivity
 import sih.binarylifters.serenitysync.assessmentactivities.PHQActivity
 import sih.binarylifters.serenitysync.classes.TestNames
 
@@ -43,6 +44,10 @@ class TestsAdapter(private val context: Context, private val testList: ArrayList
             when(data.shortForm) {
                 "PHQ-9" -> {
                     val intent = Intent(context, PHQActivity::class.java)
+                    context.startActivity(intent)
+                }
+                "GAD-7" -> {
+                    val intent = Intent(context, GADActivity::class.java)
                     context.startActivity(intent)
                 }
             }

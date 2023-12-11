@@ -39,6 +39,8 @@ class ResultActivity : AppCompatActivity() {
 
         if(testName == "PHQ-9") {
             showResultForPHQ()
+        }else if(testName == "GAD-7") {
+            showResultForGAD()
         }
 
         binding?.btnFinish?.setOnClickListener {
@@ -86,6 +88,44 @@ class ResultActivity : AppCompatActivity() {
 
         saveAssessmentDataToFirebase("PHQ-9", score)
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun showResultForGAD() {
+        val assessmentText: String
+        val textColor: Int
+        val score = testScore
+
+        when (score) {
+            in 0..4 -> {
+                assessmentText = "Minimal anxiety"
+                textColor = getColor(R.color.very_light_green)
+            }
+            in 5..9 -> {
+                assessmentText = "Mild anxiety"
+                textColor = getColor(R.color.darker_green)
+            }
+            in 10..14 -> {
+                assessmentText = "Moderate anxiety"
+                textColor = getColor(R.color.orange)
+            }
+            in 15..21 -> {
+                assessmentText = "Moderately severe anxiety"
+                textColor = getColor(R.color.red)
+            }
+            else -> {
+                assessmentText = "Severe anxiety"
+                textColor = getColor(R.color.dark_red)
+            }
+        }
+
+        binding?.tvAssessmentResult?.setTextColor(textColor)
+        binding?.tvAssessmentResult?.text = assessmentText
+        binding?.tvScore?.text = "Score: $score"
+        binding?.tvName?.text = "Hello ${Constants.DISPLAY_NAME}!"
+
+        saveAssessmentDataToFirebase("GAD-7", score)
+    }
+
 
     private fun setupToolbar() {
         setSupportActionBar(binding?.tbResult)

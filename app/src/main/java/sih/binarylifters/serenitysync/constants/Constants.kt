@@ -8,6 +8,7 @@ object Constants {
     var IS_GUEST = true
 
     val testNames = arrayListOf<TestNames>(
-        TestNames("PHQ-9", "Patient Health Questionnaire-9", "#F72585")
+        TestNames("PHQ-9", "Patient Health Questionnaire-9", "#F72585"),
+        TestNames("GAD-7", "Generalized Anxiety Disorder-7", "#66CC99")
     )
 }

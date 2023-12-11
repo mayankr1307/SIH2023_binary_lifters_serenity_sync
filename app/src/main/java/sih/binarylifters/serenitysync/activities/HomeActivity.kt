@@ -66,7 +66,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.about_us -> {
+            R.id.about -> {
                 val intent = Intent(this@HomeActivity, AboutUsActivity::class.java)
                 startActivity(intent)
             }

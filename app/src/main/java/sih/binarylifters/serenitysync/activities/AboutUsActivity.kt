@@ -19,7 +19,7 @@ class AboutUsActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         setSupportActionBar(binding?.tbHome)
-        supportActionBar?.title = "About Us"
+        supportActionBar?.title = "About"
         binding?.tbHome?.setTitleTextColor(resources.getColor(android.R.color.black, theme))
     }
 
