@@ -1,12 +1,14 @@
 package sih.binarylifters.serenitysync.activities
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +31,32 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
         setupToolbar()
         setupOnClickListeners()
+        if(Constants.IS_GUEST) {
+            setupActivityForGuest()
+        }
     }
+
+    private fun setupActivityForGuest() {
+        val cardViewAI = binding?.cvAi
+        val cardViewMood = binding?.cvMood
+        val cardViewRecords = binding?.cvRecords
+
+        val disabledAlpha = 0.5f
+
+        cardViewAI?.alpha = disabledAlpha
+        cardViewMood?.alpha = disabledAlpha
+        cardViewRecords?.alpha = disabledAlpha
+
+        cardViewAI?.isClickable = false
+        cardViewMood?.isClickable = false
+        cardViewRecords?.isClickable = false
+
+        val tintColor = ContextCompat.getColorStateList(this@HomeActivity, R.color.gray)
+        cardViewAI?.backgroundTintList = tintColor
+        cardViewMood?.backgroundTintList = tintColor
+        cardViewRecords?.backgroundTintList = tintColor
+    }
+
 
     private fun setupOnClickListeners() {
         binding?.cvTestYourself?.setOnClickListener(this@HomeActivity)
@@ -127,6 +154,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.cv_records -> {
                 val intent = Intent(this@HomeActivity, RecordsActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.cv_ai -> {
+                val intent =  Intent(this@HomeActivity, AIActivity::class.java)
                 startActivity(intent)
             }
         }
