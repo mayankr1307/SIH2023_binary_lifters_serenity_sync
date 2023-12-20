@@ -38,22 +38,18 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setupActivityForGuest() {
         val cardViewAI = binding?.cvAi
-        val cardViewMood = binding?.cvMood
         val cardViewRecords = binding?.cvRecords
 
         val disabledAlpha = 0.5f
 
         cardViewAI?.alpha = disabledAlpha
-        cardViewMood?.alpha = disabledAlpha
         cardViewRecords?.alpha = disabledAlpha
 
         cardViewAI?.isClickable = false
-        cardViewMood?.isClickable = false
         cardViewRecords?.isClickable = false
 
         val tintColor = ContextCompat.getColorStateList(this@HomeActivity, R.color.gray)
         cardViewAI?.backgroundTintList = tintColor
-        cardViewMood?.backgroundTintList = tintColor
         cardViewRecords?.backgroundTintList = tintColor
     }
 
@@ -61,7 +57,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     private fun setupOnClickListeners() {
         binding?.cvTestYourself?.setOnClickListener(this@HomeActivity)
         binding?.cvAi?.setOnClickListener(this@HomeActivity)
-        binding?.cvMood?.setOnClickListener(this@HomeActivity)
         binding?.cvRecords?.setOnClickListener(this@HomeActivity)
     }
 

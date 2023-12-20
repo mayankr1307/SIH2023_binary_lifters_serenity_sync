@@ -86,7 +86,7 @@ class ResultActivity : AppCompatActivity() {
         binding?.tvScore?.text = "Score: $score"
         binding?.tvName?.text = "Hello ${Constants.DISPLAY_NAME}!"
 
-        saveAssessmentDataToFirebase("PHQ-9", score)
+        if(!Constants.IS_GUEST) saveAssessmentDataToFirebase("PHQ-9", score)
     }
 
     @SuppressLint("SetTextI18n")
@@ -123,7 +123,7 @@ class ResultActivity : AppCompatActivity() {
         binding?.tvScore?.text = "Score: $score"
         binding?.tvName?.text = "Hello ${Constants.DISPLAY_NAME}!"
 
-        saveAssessmentDataToFirebase("GAD-7", score)
+        if(!Constants.IS_GUEST) saveAssessmentDataToFirebase("GAD-7", score)
     }
 
 

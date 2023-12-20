@@ -10,9 +10,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import sih.binarylifters.serenitysync.R
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import sih.binarylifters.serenitysync.classes.AssessmentData
 import sih.binarylifters.serenitysync.databinding.ActivityAiBinding
+import java.io.IOException
 
 class AIActivity : AppCompatActivity() {
 
@@ -21,6 +31,8 @@ class AIActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private var prompt = "Below are the test details, including scores and dates for 5 tests. Could you provide an evaluation or analysis of these tests? Keep the response to the point."
     private var tests = ""
+    private var resultsFetched = false
+    private val client = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +46,18 @@ class AIActivity : AppCompatActivity() {
         retrieveLastFiveAssessments(user.uid)
 
         binding?.ivAiAnalysis?.setOnClickListener {
-
+            if(!resultsFetched) {
+                Toast.makeText(
+                    this@AIActivity,
+                    "Please wait while the results are being fetched...",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            getResponse(prompt){response ->
+                runOnUiThread {
+                    binding?.tvResponse?.text = response
+                }
+            }
         }
     }
 
@@ -59,6 +82,8 @@ class AIActivity : AppCompatActivity() {
                 }
                 prompt +=  '\n' + tests
                 Log.e("Prompt", prompt)
+
+                resultsFetched = true
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -68,6 +93,50 @@ class AIActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        })
+    }
+
+    private fun getResponse(question: String, callback: (String) -> Unit) {
+        val apiKey = "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"
+        val url = "https://api.openai.com/v1/completions"
+
+        val requestBody = """
+            {
+            "model": "gpt-3.5-turbo-instruct",
+            "prompt": "Say this is a test",
+            "max_tokens": 7,
+            "temperature": 500
+            }
+        """.trimIndent()
+
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Authorization", "Bearer $apiKey")
+            .post(requestBody.toRequestBody("application/json".toMediaTypeOrNull()))
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("error", "API failed", e)
+                binding?.tvResponse?.text = e.message
+                callback(e.message.toString())
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                if (body != null) {
+                    Log.v("data", body)
+                } else {
+                    Log.v("data", "empty")
+                    callback("Empty response body")
+                }
+//                val jsonObject = JSONObject(body)
+//                val jsonArray: JSONArray = jsonObject.getJSONArray("choices")
+//                val textResult = jsonArray.getJSONObject(0).getString("text")
+//                callback(textResult)
+            }
+
         })
     }
 
