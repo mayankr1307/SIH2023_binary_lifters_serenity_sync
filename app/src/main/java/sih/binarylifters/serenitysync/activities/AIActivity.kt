@@ -127,6 +127,9 @@ class AIActivity : AppCompatActivity() {
                 val body = response.body?.string()
                 if (body != null) {
                     Log.v("data", body)
+                    val jsonObject = JSONObject(body)
+                    val errorMessage = jsonObject.getJSONObject("error").getString("message")
+                    callback(errorMessage)
                 } else {
                     Log.v("data", "empty")
                     callback("Empty response body")

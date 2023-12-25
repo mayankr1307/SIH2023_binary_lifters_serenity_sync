@@ -92,9 +92,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this@HomeActivity, AboutUsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.help -> {
-
-            }
             R.id.sign_out -> {
                 if(Constants.IS_GUEST) {
                     val intent = Intent(this@HomeActivity, MainActivity::class.java)

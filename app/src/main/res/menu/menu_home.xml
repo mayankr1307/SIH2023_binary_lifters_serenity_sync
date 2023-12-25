@@ -9,11 +9,6 @@
         app:showAsAction="never"
         tools:ignore="HardcodedText" />
 
-    <item
-        android:id="@+id/help"
-        android:title="Help"
-        app:showAsAction="never"
-        tools:ignore="HardcodedText" />
 
     <item
         android:id="@+id/sign_out"

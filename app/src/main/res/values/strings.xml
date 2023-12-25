@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Serenity Sync</string>
     <string name="default_web_client_id"> </string>
+    <string name="about_content">Serenity Sync is an innovative application created by Mayank Rajput. This application aims to support mental health by offering a range of tests designed to assess various mental health disorders.\n\n    Our app utilizes cutting-edge AI technology to analyze the test results, providing users with insightful feedback and suggestions for their mental well-being.\n\n    With a user-friendly interface, Serenity Sync empowers individuals to take control of their mental health, offering a supportive and accessible platform for self-assessment and improvement.\n\n    Thank you for choosing Serenity Sync as a companion in your journey toward better mental well-being.</string>
 </resources>
